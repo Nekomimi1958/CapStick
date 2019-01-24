@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<title>基本的な使い方</title>
+<link rel="stylesheet" type="text/css" href="help.css">
+<object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+	<param name="Keyword" value="基本的な使い方">
+</object>
+</head>
+
+<body>
+<h1>基本的な使い方</h1>
+
+<dl>
+<dt><img src="../images/captur_mrk.gif" alt="" height="32" width="32"> 取り込み
+<dd>
+ツールバー右端にある「<b>捕獲の杖</b>」をマウスでつかんでドラッグすると、杖の位置にあるウィンドウやコントロール等が取り込まれ、杖を離すとキャプチャーが確定して、杖はツールバーの横に戻ってきます。<br>
+確定の際には一旦 <b>CapStick</b> の画面が隠れますので、対象と重なっていたりしていても大丈夫です。直前にアクティブだったウィンドウなら、アクティブ色で取り込まれます。<br>
+※もし重なっている部分がうまく取り込めない場合は、<a href="hid00005.htm">オプション設定</a> - <b>取り込み</b> の「<b>画面が隠れる時間</b>」の値を大きくしてみてください。<br>
+
+<div class="spc_box">
+杖を離す時に<span class="btn_frame">Ctrl</span>キーを押していると、キャプチャーを確定するタイミングを遅らせることができます(デフォルト 3000ミリ秒)。これを利用すると、待ち時間の間に他のアプリケーションのメニューを表示させてそれを取り込んだりすることができます。遅延時間は、<a href="hid00005.htm">オプション設定</a> - <b>取り込み</b> の「<b>Ctrl押し下げ時の遅延時間</b>」で指定してください。<br>
+四角形以外のウィンドウはその形状で切り取られます。<br>
+なお対象のウィンドウクラス名やウィンドウテキストの内容なども表示できます。<br>
+</div>
+<br>
+
+<dt><img src="../images/btn_copy.gif" alt="" height="24" width="24"> コピー
+<dd>
+ツールバー左端のコピーボタンを押すと、キャプチャーした画像がクリップボードにコピーされます。このとき、マウスドラッグによる選択枠があるとその範囲だけがコピーされます。<br>
+なお、<a href="hid00005.htm">オプション設定</a> - <b>コピー動作</b> の設定により、コピー直後にアプリケーションを起動したりキーを送ったりすることも可能です。<br>
+<br>
+
+<dt><img src="../images/btn_save.gif" alt="" height="24" width="24"> 保存
+<dd>
+保存ボタンを押すと、<b>bmp</b>、<b>jpg</b>、<b>png</b> または <b>gif</b> ファイルとして画像を保存できます。このとき、選択枠があるとその範囲だけが保存されます。<br>
+なお、<a href="hid00005.htm">オプション設定</a> - <b>保存動作</b> の設定により、保存直後にアプリケーションを起動させることもできます。<br>
+<br>
+</dl>
+
+</body>
+</html>

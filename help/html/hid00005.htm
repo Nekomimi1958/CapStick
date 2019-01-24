@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<title>オプション設定</title>
+<link rel="stylesheet" type="text/css" href="help.css">
+<object type="application/x-oleobject" classid="clsid:1e2a7bd0-dab9-11d0-b93a-00c04fc99f9e">
+	<param name="Keyword" value="オプション設定">
+</object>
+</head>
+
+<body>
+
+<h1>オプション設定</h1>
+
+<h2>取り込み</h2>
+<div class="margin1">
+取り込みの際の動作について設定を行います。<br>
+
+<dl>
+<dt><img src="../images/grpbox.gif" alt="" border="0"> 杖
+<dd>杖先端の形状を選べます。<br>
+左側の杖は丸部分の中心がホットスポットに、右側の杖は先端がホットスポットになります。<br>
+
+<dt><img src="../images/edit.gif" alt="" border="0"> 取り込み時に画面が隠れる時間
+<dd>
+確定の際に<b> CapStick </b>の画面が隠れる時間をミリ秒単位で指定します。<br>
+もし <b>CapStick</b> の画面が重なっている部分がうまく取り込めない場合は、この値を大きくしてみてください(デフォルト 100ミリ秒)。
+
+<dt><img src="../images/edit.gif" alt="" border="0"> Ctrl押し下げ時の取り込み遅延時間
+<dd>杖を離す時に<span class="btn_frame">Ctrl</span>キーを押していると、キャプチャーを確定するタイミングを遅らせることができます。この遅延時間を変えたい場合にミリ秒単位で指定してください(デフォルト 3000ミリ秒)。
+
+<dt><img src="../images/grpbox.gif" alt="" border="0"> サウンド
+<dd>
+<b>対象変化時</b><br>
+　杖を移動中、キャプチャー対象が変化した時に鳴らしたいWAVファイル名を指定します。<br>
+
+<b>確定時</b><br>
+　杖を離してキャプチャーが確定した時に鳴らしたいWAVファイル名を指定します。<br>
+※ファイル名にドライブ名がない場合は、<b>CapStick.exe</b> のあるディレクトリからの相対指定と見なされます。<br>
+
+<dt><img src="../images/chkbox.gif" alt="" border="0"> ドロップ時に全てのアイコンを取り込む
+<dd>チェックしていると、ドロップしたファイルから複数のアイコンが抽出された場合、その全てのアイコンが取り込まれます。チェックを外すと最初のアイコンのみが取り込まれます。
+</dl>
+</div>
+<br>
+
+<h2>コピー動作</h2>
+<div class="margin1">
+コピーボタンを押してコピーした直後の動作を指定します。<br>
+<span class="btn_frame">Shift</span>キーを押しながらコピーボタンを押したときは無視されます。
+
+<dl>
+<dt><img src="../images/grpbox.gif" alt="" border="0"> アクティブにするウィンドウ
+<dd>
+<img src="../images/edit.gif" alt="" border="0"> <b>ウィンドウのクラス名</b><br>
+<img src="../images/edit.gif" alt="" border="0"> <b>タイトル(前方一致)</b><br>
+<img src="../images/edit.gif" alt="" border="0"> <b>タイトル(後方一致)</b><br>
+指定したクラス名、タイトルを持つウィンドウをアクティブ(最小化されていたら元の大きさに戻す)にします。タイトルは前方一致／後方一致(両方指定も可)、クラス名は完全一致で判定します。またどちらか片方を無指定にすると何であっても一致したとみなされます。<br>
+
+<dt><img src="../images/grpbox.gif" alt="" border="0"> ウィンドウが無い場合に起動するプログラム
+<dd>アクティブにしたいウィンドウが見つからなかった場合、あるいはウィンドウが無指定の場合に、このコマンドラインが実行されます。
+
+<dt>送出キー
+<dd>アクティブになったウィンドウに対し、指定したキーを送ります。<br>
+使用できるキーは <b>ALT</b>、<b>CTRL</b>、<b>SHIFT</b>、<b>F1</b>～<b>F12</b>、<b>A</b>～<b>Z</b>、<b>0</b>～<b>9</b> の組み合わせです。<br>
+これらを <b>, </b>で区切って並べますが、それらの頭に <b>/</b> があるとキーアップ、なければキーダウンとなります。アップとダウンの数がちゃんと対応するように注意してください。<br>
+
+<p class="indent1">
+<b>例: CTRL + V</b><br>
+<b>CTRL,V,/V,/CTRL</b>
+</p>
+</dl>
+</div>
+<br>
+
+<h2>保存動作</h2>
+<div class="margin1">
+保存ボタンで保存する際の動作を指定します。<br>
+
+<dl>
+<dt>Jpeg保存品質
+<dd>
+保存の際のJpeg圧縮レベル(1～100)を設定します。<br>
+デフォルトでは100となっています。あまり下げるとJpeg特有のにじみ等が出ます。
+
+<dt><img src="../images/grpbox.gif" alt="" border="0"> 保存後に起動するプログラム
+<dd>ファイルの保存後にこのコマンドラインが実行されます。ただし、<span class="btn_frame">Shift</span>キーを押しながら保存ボタンを押したときは無視されます。<br>
+コマンドライン内に &quot;<b>$F</b>&quot; という文字列があるとそれを保存したファイル名に置き換えます。ない場合は、コマンドラインの後にファイル名が付加されます。
+</dl>
+</div>
+<br>
+
+<h2>その他</h2>
+<div class="margin1">
+<dl>
+<dt><img src="../images/grpbox.gif" alt="" border="0"> サイズ変更のアルゴリズム
+<dd>画像のサイズ変更を行う際の画像補間法を選択します。
+
+</dl>
+</div>
+
+</body>
+</html>
