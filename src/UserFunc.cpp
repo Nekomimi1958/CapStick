@@ -6,6 +6,7 @@
 #pragma hdrstop
 #include <tchar.h>
 #include <algorithm>
+#include <VersionHelpers.h>
 #include "UserFunc.h"
 
 //---------------------------------------------------------------------------
@@ -62,6 +63,20 @@ void save_form_pos(TForm *frm, TIniFile *ini_file)
 	ini_file->WriteInteger(sct, "WinTop",	frm->Top);
 	ini_file->WriteInteger(sct, "WinWidth",	frm->Width);
 	ini_file->WriteInteger(sct, "WinHeight",frm->Height);
+}
+
+//---------------------------------------------------------------------------
+//Vista以降の拡張フレームに対応したウィンドウ長方形の取得
+//---------------------------------------------------------------------------
+RECT get_window_rect_ex(HWND hWnd)
+{
+	RECT rc;
+	if (!IsWindowsVistaOrGreater()
+		|| ::DwmGetWindowAttribute(hWnd, DWMWA_EXTENDED_FRAME_BOUNDS, &rc, sizeof(rc))!=S_OK)
+	{
+		::GetWindowRect(hWnd, &rc);
+	}
+	return rc;
 }
 
 //---------------------------------------------------------------------------

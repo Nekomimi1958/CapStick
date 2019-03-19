@@ -403,8 +403,7 @@ void __fastcall TCapStickForm::CaptWndImg(HWND hw)
 	//取り込み準備
 	Image1->Canvas->Brush->Color = ImgBgCol;
 	Image1->Canvas->FillRect(Image1->ClientRect);
-	RECT rc;
-	::GetWindowRect(hw, &rc);
+	RECT rc = get_window_rect_ex(hCurWnd);
 
 	if (Screen->MonitorCount==1) {
 		//1画面の場合、画面外は除外
@@ -588,8 +587,8 @@ void __fastcall TCapStickForm::CapToolImgMouseUp(TObject *Sender,
 	if (Button==mbLeft) {
 		//対象が自分(の一部)でなければ一旦隠して再度キャプチャー
 		RECT brc = BoundsRect;
-		RECT rcx, rc;
-		::GetWindowRect(hCurWnd, &rc);
+		RECT rc = get_window_rect_ex(hCurWnd);
+		RECT rcx;
 		::IntersectRect(&rcx, &brc, &rc);
 		if (!EqualRect(&rcx, &rc)) {
 			Visible = false;
@@ -1182,8 +1181,9 @@ void __fastcall TCapStickForm::Image1MouseDown(TObject *Sender,
 			}
 		}
 		//右クリックメニュー
-		else if (Button==mbRight)
+		else if (Button==mbRight) {
 			ShowMenu(ScrollBox1);
+		}
 	}
 }
 

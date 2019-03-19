@@ -8,4 +8,4 @@ Supported language is Japanese only.
 http://nekomimi.la.coocan.jp/freesoft/capstick.htm
 
 ## Development Environment
-C++Builder 10.2.3
+C++Builder 10.3.1

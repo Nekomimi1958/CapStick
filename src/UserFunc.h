@@ -16,6 +16,8 @@ UnicodeString get_tkn_r(UnicodeString s, UnicodeString sp);
 void load_form_pos(TForm *frm, TIniFile *ini_file, int w=0, int h=0);
 void save_form_pos(TForm *frm, TIniFile *ini_file);
 
+RECT get_window_rect_ex(HWND hWnd);
+
 UnicodeString get_filename_r(UnicodeString fnam);
 bool run_app_wait(UnicodeString cmdln, int wait = 10000);
 
