@@ -42,13 +42,13 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <VerInfo_Release>7</VerInfo_Release>
+        <VerInfo_Release>8</VerInfo_Release>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_MinorVer>6</VerInfo_MinorVer>
         <SanitizedProjectName>CapStick</SanitizedProjectName>
         <_TCHARMapping>wchar_t</_TCHARMapping>
         <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <VerInfo_Keys>CompanyName=;FileDescription=画面キャプチャーツール CapStick;FileVersion=1.6.7.0;InternalName=;LegalCopyright=Nekomimi;LegalTrademarks=;OriginalFilename=CapStick.exe;ProductName=CapStick 捕獲の杖;ProductVersion=1.6.7.0;Comments=</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileDescription=画面キャプチャーツール CapStick;FileVersion=1.6.8.0;InternalName=;LegalCopyright=Nekomimi;LegalTrademarks=;OriginalFilename=CapStick.exe;ProductName=CapStick 捕獲の杖;ProductVersion=1.6.8.0;Comments=</VerInfo_Keys>
         <Icon_MainIcon>$(BDS)\Projects\CapStick\CapStick_Icon.ico</Icon_MainIcon>
         <VerInfo_Locale>1041</VerInfo_Locale>
         <DCC_Namespace>Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
@@ -113,6 +113,7 @@
         <BCC_Defines>_DEBUG;$(BCC_Defines)</BCC_Defines>
         <LinkPackageStatics>rtl.lib;vcl.lib;vclimg.lib</LinkPackageStatics>
         <Icon_MainIcon>CapStick_Icon.ico</Icon_MainIcon>
+        <BT_BuildType>Debug</BT_BuildType>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <IntermediateOutputDir>Release_Build</IntermediateOutputDir>

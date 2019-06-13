@@ -30,7 +30,10 @@ void __fastcall TOptionDlg::FormCreate(TObject *Sender)
 //---------------------------------------------------------------------------
 void __fastcall TOptionDlg::FormShow(TObject *Sender)
 {
-	if (CapStickForm->CapCurIdx==1) CurRadioBtn2->Checked = true; else CurRadioBtn1->Checked = true;
+	if (CapStickForm->CapCurIdx==1)
+		CurRadioBtn2->Checked = true;
+	else
+		CurRadioBtn1->Checked = true;
 
 	HideWaitEdit->NumbersOnly	= true;
 	HideWaitEdit->Text			= IntToStr(CapStickForm->HideWait);

@@ -173,8 +173,7 @@ void __fastcall TCapStickForm::FormShow(TObject *Sender)
 }
 
 //---------------------------------------------------------------------------
-void __fastcall TCapStickForm::FormClose(TObject *Sender,
-      TCloseAction &Action)
+void __fastcall TCapStickForm::FormClose(TObject *Sender, TCloseAction &Action)
 {
 	Timer1->Enabled = false;
 
@@ -283,8 +282,9 @@ void __fastcall TCapStickForm::WMDropFiles(TWMDropFiles &message)
 						if ((x + 2*w)>Image1->ClientWidth) {
 							x = 0; y += h;
 						}
-						else
+						else {
 							x += w;
+						}
 					}
 				}
 				if (ixn>1) SelRect = Rect(0, 0, w, h);
@@ -298,7 +298,9 @@ void __fastcall TCapStickForm::WMDropFiles(TWMDropFiles &message)
 					::DrawIcon(Image1->Canvas->Handle, 0, 0, sif.hIcon);
 					ImgBuff->Assign(bp);
 				}
-				else flag = false;
+				else {
+					flag = false;
+				}
 			}
 		}
 
@@ -438,28 +440,49 @@ void __fastcall TCapStickForm::CaptWndImg(HWND hw)
 	::DeleteDC(scr_dc);
 
 	//リスト/コンボボックスの一覧を取得
-	std::unique_ptr<TStringList> lst(new TStringList());
-	if (ListSheet->TabVisible) {
-		StatusBar1->Panels->Items[1]->Text = "リスト内容を取得中...";
-		StatusBar1->Repaint();
-		int list_cnt = SendMessage(hw, LB_GETCOUNT, 0, 0);
-		if (list_cnt>0) {
-			for (int i=0; i<list_cnt; i++) {
-				if (SendMessage(hw, LB_GETTEXT, i, (WPARAM)tmp)==LB_ERR) break;
-				lst->Add(tmp);
+	try {
+		std::unique_ptr<TStringList> lst(new TStringList());
+		if (ListSheet->TabVisible) {
+			StatusBar1->Panels->Items[1]->Text = "リスト内容を取得中...";
+			StatusBar1->Repaint();
+			if (SameText(ClsNamEdit->Text, "ListBox")) {
+				int cnt = ::SendMessage(hw, LB_GETCOUNT, 0, 0);
+				if (cnt>0) {
+					for (int i=0; i<cnt; i++) {
+						int n = ::SendMessage(hw, LB_GETTEXTLEN, i, 0);
+						if (n==LB_ERR) break;
+						std::unique_ptr<_TCHAR[]> sbuf(new _TCHAR[n + 1]);
+						int r = ::SendMessage(hw, LB_GETTEXT, i, (WPARAM)sbuf.get());
+						if (r==LB_ERR) break;
+						if (r<=n) {
+							sbuf[r] = '\0';
+							lst->Add(sbuf.get());
+						}
+					}
+				}
 			}
-		}
-		else {
-			list_cnt = SendMessage(hw, CB_GETCOUNT, 0, 0);
-			if (list_cnt>0) {
-				for (int i=0; i<list_cnt; i++) {
-					if (SendMessage(hw, CB_GETLBTEXT, i, (WPARAM)tmp)==LB_ERR) break;
-					lst->Add(tmp);
+			else if (SameText(ClsNamEdit->Text, "ComboBox")) {
+				int cnt = ::SendMessage(hw, CB_GETCOUNT, 0, 0);
+				if (cnt>0) {
+					for (int i=0; i<cnt; i++) {
+						int n = ::SendMessage(hw, CB_GETLBTEXTLEN, i, 0);
+						if (n==LB_ERR) break;
+						std::unique_ptr<_TCHAR[]> sbuf(new _TCHAR[n + 1]);
+						int r = ::SendMessage(hw, CB_GETLBTEXT, i, (WPARAM)sbuf.get());
+						if (r==LB_ERR) break;
+						if (r<=n) {
+							sbuf[r] = '\0';
+							lst->Add(sbuf.get());
+						}
+					}
 				}
 			}
 		}
+		TextListBox->Items->Assign(lst.get());
 	}
-	TextListBox->Items->Assign(lst.get());
+	catch (...) {
+		TextListBox->Clear();
+	}
 
 	DispInfo(w, h);
 
@@ -689,8 +712,9 @@ void __fastcall TCapStickForm::CopyBtnClick(TObject *Sender)
 		Clipboard()->Assign(bmp.get());
 	}
 	//全体
-	else
+	else {
 		Clipboard()->Assign(ImgBuff);
+	}
 
 	if (!is_KeyDown(VK_SHIFT)) {
 		HWND hw = get_hwnd_ex(CopyActWndClass, CopyActWndTitle, CopyActWndTitleR);
@@ -698,8 +722,9 @@ void __fastcall TCapStickForm::CopyBtnClick(TObject *Sender)
 			if (::IsIconic(hw)) ::SendMessage(hw, WM_SYSCOMMAND, SC_RESTORE, 0);
 			::SetForegroundWindow(hw);
 		}
-		else
+		else {
 			run_app_wait(CopyCmdLine, 30000);	//T.O. = 30秒
+		}
 
 		send_key_ex(CopySendKey, 50);
 	}
@@ -729,8 +754,9 @@ void __fastcall TCapStickForm::SaveBtnClick(TObject *Sender)
 			bmp->SetSize(w, h);
 			bmp->Canvas->CopyRect(Rect(0, 0, w, h), ImgBuff->Canvas, SelRect);
 		}
-		else
+		else {
 			bmp->Assign(ImgBuff);
+		}
 
 		UnicodeString fnam = SavePictureDialog1->FileName;
 		if (!WIC_save_image(fnam, bmp.get(), JpegQuality))
@@ -805,8 +831,9 @@ void __fastcall TCapStickForm::PopMeasureItem(TObject *Sender,
 		int wd = 44+ACanvas->TextWidth(" Version 0.00");
 		if (wd>Width) Width = wd;
 	}
-	else
+	else {
 		Width += 8;
+	}
 	//高さを調整
 	Height += 2;
 }
@@ -959,11 +986,11 @@ void __fastcall TCapStickForm::SepiaActionExecute(TObject *Sender)
 		BYTE *p = (BYTE*)ImgBuff->ScanLine[j];
 		for (int i=0; i<ImgBuff->Width; i++,p+=3) {
 	        int Y = (p[0]*114 + p[1]*587 + p[2]*299)/1000;
-			n = Y + n0;	if (n>255) n=255; else if (n<0) n=0;
+			n = Y + n0;	if (n>255) n = 255; else if (n<0) n = 0;
 			p[0] = (BYTE)n;	//B
-			n = Y - n1; if (n>255) n=255; else if (n<0) n=0;
+			n = Y - n1; if (n>255) n = 255; else if (n<0) n = 0;
 			p[1] = (BYTE)n;	//G
-			n = Y + n2; if (n>255) n=255; else if (n<0) n=0;
+			n = Y + n2; if (n>255) n = 255; else if (n<0) n = 0;
 			p[2] = (BYTE)n;	//R
 		}
 	}
@@ -1086,8 +1113,9 @@ void __fastcall TCapStickForm::RotateActionExecute(TObject *Sender)
 	std::unique_ptr<Graphics::TBitmap> bmp(new Graphics::TBitmap());
 	bmp->Assign(Image1->Picture->Bitmap);
 	WIC_rotate_image(bmp.get(), (((TAction *)Sender)->Tag==0)? 1 : 3);
-	if (ImgBuff->Palette==0)
+	if (ImgBuff->Palette==0) {
 		ImgBuff->Assign(bmp.get());
+	}
 	else {
 		ImgBuff->SetSize(w, h);
 		ImgBuff->Canvas->Draw(0, 0, bmp.get());
@@ -1224,8 +1252,9 @@ void __fastcall TCapStickForm::SelShapeMouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
 	//右クリックメニュー
-	if (Button==mbRight)
+	if (Button==mbRight) {
 		ShowMenu(Sender);
+	}
 	//選択枠移動開始
 	else {
 		if (ImgBuff->Empty) return;
@@ -1483,8 +1512,9 @@ void __fastcall TCapStickForm::CopyActionUpdate(TObject *Sender)
 	else if (cp->ClassNameIs("TListBox")) {
 		ap->Enabled = (((TListBox*)cp)->SelCount>0);
 	}
-	else
+	else {
 		ap->Enabled = false;
+	}
 }
 //---------------------------------------------------------------------------
 //すべて選択
@@ -1510,8 +1540,9 @@ void __fastcall TCapStickForm::SelectAllActionUpdate(TObject *Sender)
 	else if (cp->ClassNameIs("TListBox")) {
 		ap->Enabled = (((TListBox*)cp)->Count>0);
 	}
-	else
+	else {
 		ap->Enabled = false;
+	}
 }
 
 //---------------------------------------------------------------------------

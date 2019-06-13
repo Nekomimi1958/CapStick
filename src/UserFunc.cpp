@@ -109,8 +109,8 @@ bool run_app_wait(UnicodeString cmdln, int wait)
 		::CloseHandle(pinf.hThread );
 		return true;
 	}
-	else
-		return false;
+
+	return false;
 }
 
 //---------------------------------------------------------------------------
